@@ -5,8 +5,6 @@ if (!process.env.production) {
 require('babel-register');
 
 const express = require('express');
-const React = require('react');
-const ReactDOM = require('react-dom/server');
 const pug = require('pug');
 
 const app = express();
