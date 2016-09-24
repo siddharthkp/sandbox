@@ -1,3 +1,7 @@
+if (!process.env.production) {
+    require('dotenv').config();
+}
+
 require('babel-register');
 
 const express = require('express');
@@ -13,5 +17,5 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.listen(8080);
+app.listen(process.env.PORT);
 
