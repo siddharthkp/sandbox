@@ -1,0 +1,36 @@
+button, .button {
+    background: transparent;
+    border: 1px solid #EEE;
+    border-radius: 2px;
+    padding: 10px 20px;
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+    color: #FFF;
+    transition: all 0.5s;
+}
+button:hover, .button:hover {
+    border-color: #489DF7;
+}
+button.yes, .button.yes {
+    background-color: #489DF7;
+    color: #FFF;
+    border-color: #489DF7;
+}
+button.yes:hover, .button.yes:hover {
+    background-color: #3492f5;
+}
+button.no, .button.no {
+    border: none;
+    padding-left: 5px;
+}
+button.no:hover, .button.no:hover {
+    color: #EC686C;
+}
+button.silent {
+    border: none;
+    padding-left: 0;
+}
+button:hover, .button:hover {
+    color: #3492f5;
+}

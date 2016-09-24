@@ -2,8 +2,6 @@ if (!process.env.production) {
     require('dotenv').config();
 }
 
-require('babel-register');
-
 const express = require('express');
 const pug = require('pug');
 

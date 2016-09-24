@@ -1,0 +1,37 @@
+.fade-in {
+    animation: fadein 2s;
+}
+@keyframes fadein {
+    0%      {opacity: 0;}
+    100%    {opacity: 1;}
+}
+
+.revolve {
+    overflow: hidden;
+}
+.revolve .items {
+    text-align: left;
+    width: 500vw;
+    position: relative;
+    animation: revolve 12s ease-in-out infinite;
+}
+.revolve .item {
+    display: inline-block;
+    width: 100vw;
+    text-align: center;
+}
+@keyframes revolve {
+    0%      {left: 0}
+    20%     {left: 0}
+
+    25%     {left: -100vw}
+    45%     {left: -100vw}
+
+    50%     {left: -200vw}
+    70%     {left: -200vw}
+
+    75%     {left: -300vw}
+    95%     {left: -300vw}
+
+    100%    {left: -400vw}
+}
