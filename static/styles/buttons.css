@@ -1,12 +1,12 @@
 button, .button {
     background: transparent;
-    border: 1px solid #EEE;
+    border: 1px solid #999;
     border-radius: 2px;
-    padding: 10px 20px;
+    padding: 2vh 5vw;
     cursor: pointer;
     outline: none;
     text-decoration: none;
-    color: #FFF;
+    color: #999;
     transition: all 0.5s;
 }
 button:hover, .button:hover {
