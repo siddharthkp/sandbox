@@ -10,7 +10,7 @@ app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/static'));
 
 app.get('/', (req, res) => {
-    res.render('home');
+    res.render('home', {client_id: process.env.CLIENT_ID});
 });
 
 app.listen(process.env.PORT);

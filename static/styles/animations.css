@@ -14,4 +14,11 @@
     25% {height: 50vh; padding: 25vh 0;}
     100% {height: 30vh; padding: 5vh 0 2vh;}
 }
+.photos {
+    animation: collage 60s linear infinite;
+}
+@keyframes collage {
+    0% {transform: translate3d(0, 0, 0);}
+    100% {transform: translate3d(-3600px, 0, 0);}
+}
 

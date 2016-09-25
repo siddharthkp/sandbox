@@ -1,10 +1,9 @@
-@import 'https://fonts.googleapis.com/css?family=Lato:300';
-
 body {
     font-family: 'Lato', sans-serif;
     font-weight: 300;
     color: #555;
     font-size: 18px;
     margin: 0;
+    text-align: center;
 }
 

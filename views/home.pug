@@ -2,28 +2,28 @@ include ./head.pug
 
 style
     include ../static/styles/animations.css
-link(rel='prerender' href='img/logo.png')
 
 .hero.fade-in(style='text-align:center')
-    hiddeniframe.background(
-        width='560'
-        height='315'
-        src='https://www.youtube.com/embed/an9BwJAq4Bs?rel=0&amp;controls=0&amp;showinfo=0&autoplay=1&loop=1'
-        frameborder='0'
-        allowfullscreen)
     img.logo.zoom-out(src='img/logo.png')
     .tagline Sandbox is a hackathon for makers
-    div.play
-        include ./play.pug
+    .register
+        a.button.yes(href='https://github.com/login/oauth/authorize?scope=user:email&client_id='+ client_id) register with github
     .description Have fun while building your ideas and win great prizes!
 
 .band
     span.date November 4 - 5
-    a.location(href='https://goo.gl/maps/Y98PRUFiaou') Practo Tech Office
+    span
+        a.location(href='https://goo.gl/maps/Y98PRUFiaou') Practo Tech Office
 
-.photos
-    a.button.yes(href='https://github.com/login/oauth/authorize?scope=user:email&client_id='+
-    client_id) register with github
+#photos-container
+    .photos
+    a.play(
+        href='http://www.youtube.com/embed/Ysui45wyxeM?rel=0&autoplay=1',
+        target='blank')
+        img#play-button(src='./img/play.png')
 
-include ./styles.pug
+style
+    include ../static/styles/home.css
+
+include ./footer.pug
 

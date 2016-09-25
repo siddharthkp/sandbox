@@ -13,11 +13,11 @@ button:hover, .button:hover {
     border-color: #489DF7;
 }
 button.yes, .button.yes {
-    background-color: #489DF7;
-    color: #FFF;
+    color: #489DF7;
     border-color: #489DF7;
 }
 button.yes:hover, .button.yes:hover {
+    color: #FFF;
     background-color: #3492f5;
 }
 button.no, .button.no {
