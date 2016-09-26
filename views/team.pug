@@ -1,0 +1,21 @@
+include ./head.pug
+
+link(rel='stylesheet', href='styles/team.css')
+
+.header
+    img.logo(src='img/team.jpg')
+    .heading Register your team
+
+form
+    label team name
+    input(type='text', placeholder='What\'s your team called?', autofocus)
+
+    label members
+    input(type='text', placeholder='Who\'s on your team?', autofocus)
+    input(type='text', placeholder='Who\'s on your team?', autofocus)
+    input(type='text', placeholder='Who\'s on your team?', autofocus)
+    input(type='text', placeholder='Who\'s on your team?', autofocus)
+    input.button.yes(type='submit', value='Save')
+
+include ./footer.pug
+

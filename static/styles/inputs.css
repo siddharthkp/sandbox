@@ -1,0 +1,40 @@
+form {
+    text-align: left;
+    width: 80vw;
+    margin: 10vh auto;
+}
+input {
+    padding: 10px;
+    outline: none;
+    border: 1px solid #EEE;
+    transition: border-color 0.5s;
+    font-family: 'Lato', sans-serif;
+    color: #555;
+    font-weight: 300;
+    font-size: 1em;
+}
+input[type='text'] {
+    min-width: 38vw;
+    margin: 10px 1vw 10px 0;
+}
+input:focus {
+    border-color: #489DF7;
+}
+input.error {
+    border-color: #EC686C;
+}
+label {
+    display: block;
+    padding: 5px;
+    font-size: 0.8em;
+    color: #999;
+}
+label.error {
+    color: #EC686C;
+    min-height: 20px;
+}
+@media screen and (max-width: 480px) {
+    input[type='text'] {
+        min-width: 75vw;
+    }
+}

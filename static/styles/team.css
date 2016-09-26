@@ -1,0 +1,14 @@
+body {
+    background: #F7F7F7;
+}
+.header img.logo {
+    height: 30vh;
+    padding: 5vh 0 0;
+}
+.heading {
+    color: #999;
+}
+.button {
+    padding: 1.5vh 5vw;
+    margin-top: 2vh;
+}

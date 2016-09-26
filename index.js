@@ -9,9 +9,9 @@ const app = express();
 app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/static'));
 
-app.get('/', (req, res) => {
-    res.render('home', {client_id: process.env.CLIENT_ID});
-});
+app.get('/', (req, res) => res.render('home', {client_id: process.env.CLIENT_ID}));
+
+app.get('/team', (req, res) => res.render('team'));
 
 app.listen(process.env.PORT);
 
