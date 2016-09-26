@@ -6,16 +6,19 @@ link(rel='stylesheet', href='styles/team.css')
     img.logo(src='img/team.jpg')
     .heading Register your team
 
-form
+.team
     label team name
     input(type='text', placeholder='what\'s your team called?', autofocus)
 
+.members
     label members
-    input(type='text', placeholder='who\'s on your team?', autofocus)
-    input(type='text', placeholder='who\'s on your team?', autofocus)
-    input(type='text', placeholder='who\'s on your team?', autofocus)
-    input(type='text', placeholder='who\'s on your team?', autofocus)
-    input.button.yes(type='submit', value='save')
+    .member Siddharth Kshetrapal
+    label
+        a(href='') invite
+
+.t-shirt
+    label your t-shirt size
+    input(type='text', placeholder='S/M/L/XL')
 
 include ./footer.pug
 

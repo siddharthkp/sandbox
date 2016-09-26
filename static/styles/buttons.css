@@ -34,4 +34,8 @@ button.silent {
 button:hover, .button:hover {
     color: #3492f5;
 }
+a {
+    color: #489DF7;
+    text-decoration: none;
+}
 

@@ -1,6 +1,14 @@
 body {
     background: #F7F7F7;
 }
+.heading {
+    margin-bottom: 10vh;
+}
+.team, .members, .t-shirt {
+    text-align: left;
+    width: 80vw;
+    margin: 5vh auto;
+}
 .header img.logo {
     height: 30vh;
     padding: 5vh 0 0;
@@ -11,4 +19,7 @@ body {
 .button {
     padding: 1.5vh 5vw;
     margin-top: 2vh;
+}
+.member {
+    padding: 5px;
 }

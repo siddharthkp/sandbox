@@ -1,8 +1,3 @@
-form {
-    text-align: left;
-    width: 80vw;
-    margin: 10vh auto;
-}
 input {
     padding: 10px;
     outline: none;
@@ -14,7 +9,7 @@ input {
     font-size: 1em;
 }
 input[type='text'] {
-    min-width: 38vw;
+    min-width: 25vw;
     margin: 10px 1vw 10px 0;
 }
 input:focus {
@@ -38,3 +33,4 @@ label.error {
         min-width: 75vw;
     }
 }
+
