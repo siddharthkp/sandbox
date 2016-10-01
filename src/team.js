@@ -54,8 +54,12 @@ let create = (name, user, res) => {
 };
 
 let update = (name, team, res) => {
-    query = `UPDATE teams SET name = '${name}' WHERE id = '${team.id}'`;
-    db.query(query, () => res.end('Saved'));
+    name = name.replace(/\'/g, '\'\''); // Handling single quotes
+    query = `UPDATE teams SET name = '${name}' WHERE id = ${team.id}`;
+    db.query(query, (err, result) => {
+        if (err) throw err;
+        res.end('Saved');
+    });
 };
 
 let save = (req, res) => {
