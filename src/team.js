@@ -27,7 +27,8 @@ let render = (req, res) => {
 
     getUser(req.cookies.token, (user) => {
         getTeam(user, (team) => {
-            res.render('team');
+            if (!team) team = {};
+            res.render('team', {team});
         });
     });
 
