@@ -13,8 +13,12 @@ let getTeam = (user, callback) => {
 };
 
 let getMembers = (team, callback) => {
-    let query = `SELECT * from team_members where team_id = ${team.id}`;
-    db.query(query, (members) => callback(members));
+    let query = `SELECT * from team_members JOIN users on team_members.username = users.username where team_id = ${team.id}`;
+    db.query(query, (err, results) => {
+        if (err) throw err;
+        let members = results.rows;
+        callback(members);
+    });
 };
 
 let render = (req, res) => {
@@ -27,8 +31,15 @@ let render = (req, res) => {
 
     getUser(req.cookies.token, (user) => {
         getTeam(user, (team) => {
-            if (!team) team = {};
-            res.render('team', {team});
+            if (!team) {
+                team = {};
+                res.render('team', {team});
+            } else {
+                getMembers(team, (members) => {
+                    team.members = members;
+                    res.render('team', {team});
+                });
+            }
         });
     });
 

@@ -14,7 +14,8 @@ link(rel='stylesheet', href='styles/team.css')
 
 .members
     label members
-    .member Siddharth Kshetrapal
+    each member in team.members
+        .member=member.name||member.username
     label
         a(href='') invite
 
