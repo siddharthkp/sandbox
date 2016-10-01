@@ -12,12 +12,22 @@ const app = express();
 app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/static'));
 
-app.get('/', (req, res) => res.render('home', {client_id: process.env.GITHUB_ID}));
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+const database = require('./src/database');
+database.get((connection) => {
+    global.db = connection;
+    app.listen(process.env.PORT, () => console.log('App is active'));
+});
+
+app.get('/', (req, res) => {
+    if (req.cookies.token) res.redirect('/team');
+    else res.render('home', {client_id: process.env.GITHUB_ID});
+});
 
 app.get('/team', team.render);
 app.post('/team', team.save);
 
 app.get('/auth', user.auth);
-
-app.listen(process.env.PORT);
 

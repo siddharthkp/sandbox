@@ -1,17 +1,10 @@
 if (!process.env.production) require('dotenv').config();
-const pg = require('pg');
 const github = require('./github');
 
-let database;
-
-pg.defaults.ssl = true;
-pg.connect(process.env.DATABASE_URL, (err, client) => {
-    if (err) throw err;
-    database = client;
-});
-
-let get = () => {
-
+let get = (token, callback) => {
+    github.user(token, (user) => {
+        callback(JSON.parse(user));
+    });
 };
 
 let save = () => {
@@ -30,7 +23,7 @@ let auth = (req, res) => {
             let name = user.name;
             let email = user.email;
             let query = `INSERT INTO users (github_id, username, token, name, email) VALUES('${github_id}', '${username}', '${token}', '${name}', '${email}')`;
-            database.query(query, (err, result) => {
+            db.query(query, (err, result) => {
                 if (err) throw err;
                 res.redirect('/team');
             });
