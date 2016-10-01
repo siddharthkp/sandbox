@@ -8,7 +8,8 @@ link(rel='stylesheet', href='styles/team.css')
 
 .team
     label team name
-    input(type='text', placeholder='what\'s your team called?', autofocus)
+    input#team-name(type='text', placeholder='what\'s your team called?', autofocus)
+    label#team-message
 
 .members
     label members
@@ -20,5 +21,6 @@ link(rel='stylesheet', href='styles/team.css')
     label your t-shirt size
     input(type='text', placeholder='S/M/L/XL')
 
-include ./footer.pug
+include ./common-styles.pug
+include ./scripts.pug
 

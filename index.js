@@ -15,6 +15,9 @@ app.use(express.static(__dirname + '/static'));
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded());
+
 const database = require('./src/database');
 database.get((connection) => {
     global.db = connection;

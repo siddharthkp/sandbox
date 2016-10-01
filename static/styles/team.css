@@ -23,3 +23,12 @@ body {
 .member {
     padding: 5px;
 }
+#team-message {
+    display: inline-block;
+}
+.saved {
+    color: #2cc36b;
+}
+.failed {
+    color: #c0392b;
+}
