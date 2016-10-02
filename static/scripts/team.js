@@ -13,54 +13,39 @@ function debounce(func, wait, immediate) {
     };
 }
 
+function setMessage(messageElement, message) {
+    messageElement.text(message);
+    messageElement.addClass(message);
+    messageElement.animate({
+        opacity: 0
+    }, 1000);
+}
+
+function save(url, data, messageElement) {
+    messageElement.removeAttr('class');
+    messageElement.css('opacity', 1);
+    messageElement.text('saving...');
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: data,
+        success: function() {setMessage(messageElement, 'saved')},
+        error: function() {setMessage(messageElement, 'failed')}
+    });
+}
+
 var saveName = debounce(function() {
     var name = $('#team-name').val();
     var messageElement = $('#team-message');
-    messageElement.removeProp('class');
-    messageElement.css('opacity', 1);
-    messageElement.text('saving...');
-    $.post('/team', {
-        name: name,
-        success: function(response, status){
-            var message = '';
-            if (status === 'success') message = 'saved';
-            else message = 'failed';
-            messageElement.text(message);
-            messageElement.addClass(message);
-            messageElement.animate({
-                opacity: 0
-            }, 1000);
-        },
-        error: function() {
-            // error
-        }
-    });
+    var url = '/team';
+    save(url, {name: name}, messageElement);
 }, 500);
 
 var saveTshirt = debounce(function() {
     var size = $('#tshirt').val();
     var messageElement = $('#tshirt-message');
-    messageElement.removeProp('class');
-    messageElement.css('opacity', 1);
-    messageElement.text('saving...');
-    $.ajax({
-        url: '/tshirt',
-        type: 'POST',
-        data: {size: size},
-        success: function(response, status) {
-            var message = '';
-            if (status === 'success') message = 'saved';
-            else message = 'failed';
-            messageElement.text(message);
-            messageElement.addClass(message);
-            messageElement.animate({
-                opacity: 0
-            }, 1000);
-        },
-        error: function() {
-            // error
-        }
-    });
+    var url = '/tshirt';
+    save(url, {size: size}, messageElement);
 }, 500);
 
 $('#team-name').on('input', saveName);
