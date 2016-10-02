@@ -19,17 +19,50 @@ var saveName = debounce(function() {
     messageElement.removeProp('class');
     messageElement.css('opacity', 1);
     messageElement.text('saving...');
-    $.post('/team', {name}, function(response, status){
-        var message = '';
-        if (status === 'success') message = 'saved';
-        else message = 'failed';
-        messageElement.text(message);
-        messageElement.addClass(message);
-        messageElement.animate({
-            opacity: 0
-        }, 1000);
+    $.post('/team', {
+        name: name,
+        success: function(response, status){
+            var message = '';
+            if (status === 'success') message = 'saved';
+            else message = 'failed';
+            messageElement.text(message);
+            messageElement.addClass(message);
+            messageElement.animate({
+                opacity: 0
+            }, 1000);
+        },
+        error: function() {
+            // error
+        }
+    });
+}, 500);
+
+var saveTshirt = debounce(function() {
+    var size = $('#tshirt').val();
+    var messageElement = $('#tshirt-message');
+    messageElement.removeProp('class');
+    messageElement.css('opacity', 1);
+    messageElement.text('saving...');
+    $.ajax({
+        url: '/tshirt',
+        type: 'POST',
+        data: {size: size},
+        success: function(response, status) {
+            var message = '';
+            if (status === 'success') message = 'saved';
+            else message = 'failed';
+            messageElement.text(message);
+            messageElement.addClass(message);
+            messageElement.animate({
+                opacity: 0
+            }, 1000);
+        },
+        error: function() {
+            // error
+        }
     });
 }, 500);
 
 $('#team-name').on('input', saveName);
+$('#tshirt').on('input', saveTshirt);
 

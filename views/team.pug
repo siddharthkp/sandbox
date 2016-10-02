@@ -21,7 +21,8 @@ link(rel='stylesheet', href='styles/team.css')
 
 .t-shirt
     label your t-shirt size
-    input(type='text', placeholder='S/M/L/XL')
+    input#tshirt(type='text', placeholder='S/M/L/XL', value=user.tshirt)
+    label#tshirt-message
 
 include ./common-styles.pug
 include ./scripts.pug

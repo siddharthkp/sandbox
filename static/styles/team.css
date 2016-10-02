@@ -23,7 +23,7 @@ body {
 .member {
     padding: 5px;
 }
-#team-message {
+#team-message, #tshirt-message {
     display: inline-block;
 }
 .saved {

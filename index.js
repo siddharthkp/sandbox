@@ -34,3 +34,4 @@ app.post('/team', team.save);
 
 app.get('/auth', user.auth);
 
+app.post('/tshirt', user.tshirt);

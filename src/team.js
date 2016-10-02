@@ -1,9 +1,17 @@
 const user = require('./user');
 
-let getUser = (token, callback) => user.get(token, (user) => callback(user));
+let getUser = (token, callback) => {
+    let query = `SELECT * from users where token = '${token}' ORDER BY id DESC LIMIT 1`;
+    db.query(query, (err, result) => {
+        if (err) throw err;
+        let user = result.rows[0];
+        callback(user);
+    });
+};
+//user.get(token, (user) => callback(user));
 
 let getTeam = (user, callback) => {
-    let username = user.login;
+    let username = user.username;
     let query = `SELECT teams.id, teams.name from teams join team_members on teams.id = team_members.team_id WHERE team_members.username = '${username}' LIMIT 1`;
     db.query(query, (err, result) => {
         if (err) throw err;
@@ -33,11 +41,11 @@ let render = (req, res) => {
         getTeam(user, (team) => {
             if (!team) {
                 team = {};
-                res.render('team', {team});
+                res.render('team', {team, user});
             } else {
                 getMembers(team, (members) => {
                     team.members = members;
-                    res.render('team', {team});
+                    res.render('team', {team, user});
                 });
             }
         });
@@ -46,7 +54,7 @@ let render = (req, res) => {
 };
 
 let addMember = (team_id, user, callback) => {
-    let username = user.login;
+    let username = user.username;
     let query = `INSERT INTO team_members (team_id, username, owner) VALUES (${team_id}, '${username}', true)`;
     db.query(query, (err, results) => {
         if (err) throw err;
@@ -55,7 +63,7 @@ let addMember = (team_id, user, callback) => {
 };
 
 let create = (name, user, res) => {
-    let username = user.login;
+    let username = user.username;
     let query = `INSERT INTO teams (name) VALUES ('${name}') RETURNING id`;
     db.query(query, (err, results) => {
         if (err) throw err;

@@ -31,5 +31,16 @@ let auth = (req, res) => {
     });
 };
 
-module.exports = {get, save, auth};
+let tshirt = (req, res) => {
+    let size = req.body.size;
+    get(req.cookies.token, (user) => {
+        let query = `UPDATE users SET tshirt = '${size}' WHERE username = '${user.username}'`;
+        db.query(query, (err, result) => {
+            if (err) throw err;
+            res.end('Saved');
+        });
+    });
+};
+
+module.exports = {get, save, auth, tshirt};
 
