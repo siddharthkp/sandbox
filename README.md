@@ -1,2 +1,10 @@
-# sandbox
-WIP: Sandbox 3
+# sandbox V
+
+
+
+* Code to bootup SQL
+```
+create table teams (id serial NOT NULL PRIMARY KEY, name varchar);
+create table users (id SERIAL NOT NULL PRIMARY KEY, github_id varchar, username varchar, token varchar, name varchar, email varchar);
+create table team_members (id SERIAL NOT NULL PRIMARY KEY, team_id int, username varchar, owner varchar);
+```

@@ -11,6 +11,10 @@ let getUser = (token, callback) => {
 //user.get(token, (user) => callback(user));
 
 let getTeam = (user, callback) => {
+    if (!user) {
+      callback(null);
+      return;
+    }
     let username = user.username;
     let query = `SELECT teams.id, teams.name from teams join team_members on teams.id = team_members.team_id WHERE team_members.username = '${username}' LIMIT 1`;
     db.query(query, (err, result) => {
@@ -92,4 +96,3 @@ let save = (req, res) => {
 };
 
 module.exports = {render, save};
-

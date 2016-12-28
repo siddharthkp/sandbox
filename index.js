@@ -25,6 +25,7 @@ database.get((connection) => {
 });
 
 app.get('/', (req, res) => {
+
     if (req.cookies.token) res.redirect('/team');
     else res.render('home', {client_id: process.env.GITHUB_ID});
 });
