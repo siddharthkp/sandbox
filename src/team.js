@@ -109,7 +109,7 @@ let save = (req, res) => {
     });
 };
 
-let leave = (req, res, callback) => {
+let leave = (req, res, next, callback) => {
     getUser(req.cookies.token, (user) => {
         let query = `DELETE from team_members WHERE username = '${user.username}'`;
         db.query(query, (err, result) => {
@@ -152,11 +152,6 @@ let join = (req, res) => {
             });
         });
     }
-};
-
-let joinTeam = (teamHash) => {
-    let teamId = atob(teamHash).replace('teamid');
-    console.log(teamId);
 };
 
 module.exports = {render, save, leave, join};
