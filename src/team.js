@@ -116,4 +116,16 @@ let leave = (req, res) => {
     });
 };
 
-module.exports = {render, save, leave};
+let join = (req, res) => {
+    if (req.cookies.token) res.redirect(`/?intent=${req.url}`);
+    /*else getUser(req.cookies.token, (user) => {
+        getTeam(user, (team) => {
+            if (!team) create(name, user, res);
+            else update(name, track, team, res);
+        });
+    });
+    res.render('join', {team, user});
+    */
+};
+
+module.exports = {render, save, leave, join};

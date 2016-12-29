@@ -22,9 +22,10 @@ let auth = (req, res) => {
             let username = user.login;
             let name = user.name;
             let email = user.email;
-            let query = `INSERT INTO users (github_id, username, token, name, email) VALUES('${github_id}', '${username}', '${token}', '${name}', '${email}')`;
+            let query = `INSERT INTO users (github_id, username, token, name, email) `;
+            query += `VALUES('${github_id}', '${username}', '${token}', '${name}', '${email}') `;
+            query += `ON CONFLICT (github_id) DO UPDATE SET token = '${token}'`;
             db.query(query, (err, result) => {
-                console.log(err)
                 if (err) throw err;
                 res.redirect('/team');
             });
