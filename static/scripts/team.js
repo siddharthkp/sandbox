@@ -50,4 +50,8 @@ var saveTshirt = debounce(function() {
 
 $('#team-name').on('input', saveName);
 $('#tshirt').on('input', saveTshirt);
+$('#copy').on('click', function() {
+    $('#copy').text('copied').addClass('saved');
+});
 
+new Clipboard('#copy');

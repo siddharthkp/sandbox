@@ -36,3 +36,6 @@ body {
 .radio-inline {
     display: inline-block;
 }
+a {
+    cursor: pointer;
+}

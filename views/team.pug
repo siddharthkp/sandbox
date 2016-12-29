@@ -31,8 +31,12 @@ link(rel='stylesheet', href='styles/team.css')
         if team.members
             each member in team.members
                 .member=member.name||member.username
-    label
-        a(href='') invite
+
+    label(style="margin-top: 15px; line-height: 2")
+        span share this url to invite your team members: 
+        span(style='color:#1268A2')=team.inviteLink
+        span &nbsp;
+        a(id='copy', data-clipboard-text=team.inviteLink) copy
 
 .t-shirt
     label your t-shirt size

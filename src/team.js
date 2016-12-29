@@ -1,4 +1,5 @@
 const user = require('./user');
+const btoa = require('btoa');
 
 let getUser = (token, callback) => {
     let query = `SELECT * from users where token = '${token}' ORDER BY id DESC LIMIT 1`;
@@ -10,6 +11,7 @@ let getUser = (token, callback) => {
 };
 //user.get(token, (user) => callback(user));
 
+/* Get team for user */
 let getTeam = (user, callback) => {
     if (!user) {
       callback(null);
@@ -33,6 +35,12 @@ let getMembers = (team, callback) => {
     });
 };
 
+let getInviteLink = (team, req) => {
+    let host = req.get('host');
+    let hash = btoa(team.name);
+    return `${host}/join/${hash}`;
+};
+
 let render = (req, res) => {
 
     /*
@@ -49,6 +57,7 @@ let render = (req, res) => {
             } else {
                 getMembers(team, (members) => {
                     team.members = members;
+                    team.inviteLink = getInviteLink(team, req);
                     res.render('team', {team, user});
                 });
             }
