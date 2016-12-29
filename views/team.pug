@@ -22,26 +22,27 @@ link(rel='stylesheet', href='styles/team.css')
             label(for=track).radio-inline=track
         label#track-message
 
-.members
-    label members (max 4)
-    if team
-        if team.members
-            each member in team.members
-                .member
-                    span=member.username||member.name
-                    if (user.username == member.username)
-                        a(href='/leave', class='tiny', style='margin-left: 10px') leave team
+if (team.name)
+    .members
+        label members (max 4)
+        if team
+            if team.members
+                each member in team.members
+                    .member
+                        span=member.username||member.name
+                        if (user.username == member.username)
+                            a(href='/leave', class='tiny', style='margin-left: 10px') leave team
 
-    label(style="margin-top: 15px; line-height: 2")
-        span share this url to invite your team members:
-        span(style='color:#1268A2')=team.inviteLink
-        span &nbsp;
-        a(id='copy', data-clipboard-text=team.inviteLink) copy
+        label(style="margin-top: 15px; line-height: 2")
+            span share this url to invite your team members:
+            span(style='color:#1268A2')=team.inviteLink
+            span &nbsp;
+            a(id='copy', data-clipboard-text=team.inviteLink) copy
 
-.t-shirt
-    label your t-shirt size
-    input#tshirt(type='text', placeholder='S/M/L/XL/XXL', value=user.tshirt)
-    label#tshirt-message
+    .t-shirt
+        label your t-shirt size
+        input#tshirt(type='text', placeholder='S/M/L/XL/XXL', value=user.tshirt)
+        label#tshirt-message
 
 include ./common-styles.pug
 include ./scripts.pug
