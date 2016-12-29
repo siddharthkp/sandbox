@@ -6,7 +6,7 @@ link(rel='stylesheet', href='styles/team.css')
     img.logo(src='img/team.jpg')
     div(style='margin-top: 100px') Do you want to ditch !{oldTeam.name} for !{newTeam.name}?
     div(style='margin-top: 50px')
-        a.button.yes(href='/join?team=teamHash&confirmed=yes') yes
+        a.button.yes(href='/join?team=' + teamHash + '&confirmed=yes') yes
 
 include ./common-styles.pug
 include ./scripts.pug
