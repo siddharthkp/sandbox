@@ -2,7 +2,7 @@ body {
     background: #F7F7F7;
 }
 .heading {
-    margin-bottom: 10vh;
+    margin-bottom: 3vh;
 }
 .team, .members, .t-shirt {
     text-align: left;
@@ -31,4 +31,8 @@ body {
 }
 .failed {
     color: #c0392b;
+}
+
+.radio-inline {
+    display: inline-block;
 }

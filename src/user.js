@@ -23,7 +23,6 @@ let auth = (req, res) => {
             let name = user.name;
             let email = user.email;
             let query = `INSERT INTO users (github_id, username, token, name, email) VALUES('${github_id}', '${username}', '${token}', '${name}', '${email}')`;
-            console.log(query);
             db.query(query, (err, result) => {
                 console.log(err)
                 if (err) throw err;

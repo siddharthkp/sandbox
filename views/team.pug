@@ -10,20 +10,34 @@ link(rel='stylesheet', href='styles/team.css')
     label team name
     input#team-name(type='text', placeholder='what\'s your team called?',
     autofocus, value=team.name)
-    label#team-message
+    <br /><br />
+    label select track
+    input(type='radio', name='track', value='hardware' id='hardware')
+    label(for='hardware').radio-inline Hardware
+    input(type='radio', name='track', value='opentrack' id='opentrack')
+    label(for='opentrack').radio-inline Open Track
+    input(type='radio', name='track', value='developertools' id='developertools')
+    label(for='developertools').radio-inline Developer Tools
+    input(type='radio', name='track', value='design' id='design')
+    label(for='design').radio-inline Design
+    input(type='radio', name='track', value='dataviz' id='dataviz')
+    label(for='dataviz').radio-inline Data Viz
+    input(type='radio', name='track', value='quality' id='quality')
+    label(for='quality').radio-inline Quality
 
 .members
     label members
-    each member in team.members
-        .member=member.name||member.username
+    if team
+        if team.members
+            each member in team.members
+                .member=member.name||member.username
     label
         a(href='') invite
 
 .t-shirt
     label your t-shirt size
-    input#tshirt(type='text', placeholder='S/M/L/XL', value=user.tshirt)
+    input#tshirt(type='text', placeholder='S/M/L/XL/XXL', value=user.tshirt)
     label#tshirt-message
 
 include ./common-styles.pug
 include ./scripts.pug
-
