@@ -38,7 +38,7 @@ let auth = (req, res) => {
 let tshirt = (req, res) => {
     let size = req.body.size;
     get(req.cookies.token, (user) => {
-        let query = `UPDATE users SET tshirt = '${size}' WHERE username = '${user.username}'`;
+        let query = `UPDATE users SET tshirt = '${size}' WHERE username = '${user.login}'`;
         db.query(query, (err, result) => {
             if (err) throw err;
             res.end('Saved');
