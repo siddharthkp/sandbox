@@ -53,7 +53,15 @@ let render = (req, res) => {
      */
     res.clearCookie('teamintent');
 
+    if (!req.cookies.token) res.redirect('/');
+    return;
+
     getUser(req.cookies.token, (user) => {
+        if (!user) {
+            res.clearCookie('token');
+            res.redirect('/');
+            return;
+        }
         getTeam(user, (team) => {
             if (!team) {
                 team = {};
