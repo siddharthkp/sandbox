@@ -18,7 +18,7 @@ let getTeam = (user, callback) => {
       return;
     }
     let username = user.username;
-    let query = `SELECT teams.id, teams.name from teams join team_members on teams.id = team_members.team_id WHERE team_members.username = '${username}' LIMIT 1`;
+    let query = `SELECT teams.id, teams.name, teams.track from teams join team_members on teams.id = team_members.team_id WHERE team_members.username = '${username}' LIMIT 1`;
     db.query(query, (err, result) => {
         if (err) throw err;
         let team = result.rows[0];
@@ -37,7 +37,8 @@ let getMembers = (team, callback) => {
 
 let getInviteLink = (team, req) => {
     let host = req.get('host');
-    let hash = btoa(team.name);
+    let salt = 'teamid';
+    let hash = btoa(`${salt}${team.id}`);
     return `${host}/join/${hash}`;
 };
 
@@ -68,7 +69,7 @@ let render = (req, res) => {
 
 let addMember = (team_id, user, callback) => {
     let username = user.username;
-    let query = `INSERT INTO team_members (team_id, username, owner) VALUES (${team_id}, '${username}', true)`;
+    let query = `INSERT INTO team_members (team_id, username) VALUES (${team_id}, '${username}')`;
     db.query(query, (err, results) => {
         if (err) throw err;
         callback();
@@ -85,9 +86,9 @@ let create = (name, user, res) => {
     });
 };
 
-let update = (name, team, res) => {
+let update = (name, track, team, res) => {
     name = name.replace(/\'/g, '\'\''); // Handling single quotes
-    query = `UPDATE teams SET name = '${name}' WHERE id = ${team.id}`;
+    query = `UPDATE teams SET name = '${name}', track = '${track}' WHERE id = ${team.id}`;
     db.query(query, (err, result) => {
         if (err) throw err;
         res.end('Saved');
@@ -96,10 +97,11 @@ let update = (name, team, res) => {
 
 let save = (req, res) => {
     let name = req.body.name;
+    let track = req.body.track || '';
     getUser(req.cookies.token, (user) => {
         getTeam(user, (team) => {
             if (!team) create(name, user, res);
-            else update(name, team, res);
+            else update(name, track, team, res);
         });
     });
 };

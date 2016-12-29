@@ -34,11 +34,14 @@ function save(url, data, messageElement) {
     });
 }
 
-var saveName = debounce(function() {
+var saveTeam = debounce(function(event) {
     var name = $('#team-name').val();
-    var messageElement = $('#team-message');
+    var track = $('input[name="track"]:checked').val() || '';
+    var messageElement;
+    if (event.target.name === 'track') messageElement = $('#track-message');
+    else messageElement = $('#name-message');
     var url = '/team';
-    save(url, {name: name}, messageElement);
+    save(url, {name: name, track: track}, messageElement);
 }, 500);
 
 var saveTshirt = debounce(function() {
@@ -48,8 +51,9 @@ var saveTshirt = debounce(function() {
     save(url, {size: size}, messageElement);
 }, 500);
 
-$('#team-name').on('input', saveName);
+$('#team-name').on('input', saveTeam);
 $('#tshirt').on('input', saveTshirt);
+$('input[name="track"]').on('change', saveTeam);
 $('#copy').on('click', function() {
     $('#copy').text('copied').addClass('saved');
 });

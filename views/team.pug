@@ -10,30 +10,26 @@ link(rel='stylesheet', href='styles/team.css')
     label team name
     input#team-name(type='text', placeholder='what\'s your team called?',
     autofocus, value=team.name)
+    label#name-message
     <br /><br />
     label select track
-    input(type='radio', name='track', value='hardware' id='hardware')
-    label(for='hardware').radio-inline Hardware
-    input(type='radio', name='track', value='opentrack' id='opentrack')
-    label(for='opentrack').radio-inline Open Track
-    input(type='radio', name='track', value='developertools' id='developertools')
-    label(for='developertools').radio-inline Developer Tools
-    input(type='radio', name='track', value='design' id='design')
-    label(for='design').radio-inline Design
-    input(type='radio', name='track', value='dataviz' id='dataviz')
-    label(for='dataviz').radio-inline Data Viz
-    input(type='radio', name='track', value='quality' id='quality')
-    label(for='quality').radio-inline Quality
+    each track in ['design', 'hardware', 'open track', 'dev tools', 'data viz', 'quality']
+        if (team.track == track)
+            input(type='radio', name='track', value=track id=track checked=true)
+        else
+            input(type='radio', name='track', value=track id=track)
+        label(for=track).radio-inline=track
+    label#track-message
 
 .members
-    label members
+    label members (max 4)
     if team
         if team.members
             each member in team.members
                 .member=member.name||member.username
 
     label(style="margin-top: 15px; line-height: 2")
-        span share this url to invite your team members: 
+        span share this url to invite your team members:
         span(style='color:#1268A2')=team.inviteLink
         span &nbsp;
         a(id='copy', data-clipboard-text=team.inviteLink) copy
