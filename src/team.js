@@ -82,13 +82,13 @@ let create = (name, user, res) => {
     db.query(query, (err, results) => {
         if (err) throw err;
         let id = results.rows[0].id;
-        addMember(id, user, () => res.end('Saved'));
+        addMember(id, user, () => res.end('Created'));
     });
 };
 
 let update = (name, track, team, res) => {
     name = name.replace(/\'/g, '\'\''); // Handling single quotes
-    query = `UPDATE teams SET name = '${name}', track = '${track}' WHERE id = ${team.id}`;
+    let query = `UPDATE teams SET name = '${name}', track = '${track}' WHERE id = ${team.id}`;
     db.query(query, (err, result) => {
         if (err) throw err;
         res.end('Saved');
@@ -106,4 +106,14 @@ let save = (req, res) => {
     });
 };
 
-module.exports = {render, save};
+let leave = (req, res) => {
+    getUser(req.cookies.token, (user) => {
+        let query = `DELETE from team_members WHERE username = '${user.username}'`;
+        db.query(query, (err, result) => {
+            if (err) throw err;
+            res.redirect('/team');
+        });
+    });
+};
+
+module.exports = {render, save, leave};

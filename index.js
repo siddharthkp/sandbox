@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
 
 app.get('/team', team.render);
 app.post('/team', team.save);
+app.get('/leave', team.leave);
 
 app.get('/auth', user.auth);
 

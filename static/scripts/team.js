@@ -29,7 +29,10 @@ function save(url, data, messageElement) {
         url: url,
         type: 'POST',
         data: data,
-        success: function() {setMessage(messageElement, 'saved')},
+        success: function(response) {
+            setMessage(messageElement, 'saved');
+            if (response === 'Created') location.reload();
+        },
         error: function() {setMessage(messageElement, 'failed')}
     });
 }

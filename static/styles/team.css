@@ -40,3 +40,7 @@ body {
 a {
     cursor: pointer;
 }
+
+.tiny {
+    font-size: 0.8em;
+}

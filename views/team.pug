@@ -26,7 +26,10 @@ link(rel='stylesheet', href='styles/team.css')
     if team
         if team.members
             each member in team.members
-                .member=member.name||member.username
+                .member
+                    span=member.username||member.name
+                    if (user.username == member.username)
+                        a(href='/leave', class='tiny', style='margin-left: 10px') leave team
 
     label(style="margin-top: 15px; line-height: 2")
         span share this url to invite your team members:
