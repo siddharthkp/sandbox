@@ -109,12 +109,12 @@ let save = (req, res) => {
     });
 };
 
-let leave = (req, res, next, callback) => {
+let leave = (req, res) => {
     getUser(req.cookies.token, (user) => {
         let query = `DELETE from team_members WHERE username = '${user.username}'`;
         db.query(query, (err, result) => {
             if (err) throw err;
-            if (callback) callback();
+            if (req.callback) req.callback();
             else res.redirect('/team');
         });
     });
@@ -144,9 +144,10 @@ let join = (req, res) => {
                     else if (oldTeam.id === newTeam.id) res.redirect('/team');
                     else if (confirmed) {
                         // leave all teams
-                        leave(req, res, () => {
+                        req.callback = () => {
                             addMember(newTeam.id, user, () => res.redirect('/team'));
-                        });
+                        };
+                        leave(req, res);
                     } else res.render('decision', {teamHash, oldTeam, newTeam});
                 });
             });
