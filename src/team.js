@@ -1,5 +1,6 @@
 const user = require('./user');
 const btoa = require('btoa');
+const atob = require('atob');
 
 let getUser = (token, callback) => {
     let query = `SELECT * from users where token = '${token}' ORDER BY id DESC LIMIT 1`;
@@ -37,18 +38,20 @@ let getMembers = (team, callback) => {
 
 let getInviteLink = (team, req) => {
     let host = req.get('host');
-    let salt = 'teamid';
+    let salt = process.env.SALT;
     let hash = btoa(`${salt}${team.id}`);
-    return `${host}/join/${hash}`;
+    return `${host}/join?team=${hash}`;
 };
 
 let render = (req, res) => {
 
     /*
+     * Clear team intent cookie
      * Get user
      * Get team for the user
      * Get members for that team
      */
+    res.clearCookie('teamintent');
 
     getUser(req.cookies.token, (user) => {
         getTeam(user, (team) => {
@@ -106,26 +109,54 @@ let save = (req, res) => {
     });
 };
 
-let leave = (req, res) => {
+let leave = (req, res, callback) => {
     getUser(req.cookies.token, (user) => {
         let query = `DELETE from team_members WHERE username = '${user.username}'`;
         db.query(query, (err, result) => {
             if (err) throw err;
-            res.redirect('/team');
+            if (callback) callback();
+            else res.redirect('/team');
         });
     });
 };
 
+let getTeamFromHash = (hash, callback) => {
+    let teamId = atob(hash).replace(process.env.SALT, '');
+    let query = `SELECT teams.id, teams.name from teams WHERE id = '${teamId}'`;
+    db.query(query, (err, result) => {
+        if (err) throw err;
+        callback(result.rows[0]);
+    })
+};
+
 let join = (req, res) => {
-    if (req.cookies.token) res.redirect(`/?intent=${req.url}`);
-    /*else getUser(req.cookies.token, (user) => {
-        getTeam(user, (team) => {
-            if (!team) create(name, user, res);
-            else update(name, track, team, res);
+    let teamHash = req.query.team || req.cookies.teamintent;
+    let confirmed = req.query.confirmed || false;
+    if (!req.cookies.token) {
+        let month = 30 * 24 * 60 * 60 * 1000; //milliseconds
+        res.cookie('teamintent', teamHash, {maxAge: month});
+        res.redirect(`/`);
+    } else {
+        getUser(req.cookies.token, (user) => {
+            getTeam(user, (oldTeam) => {
+                getTeamFromHash(teamHash, newTeam => {
+                    if (!oldTeam) addMember(newTeam.id, user, () => res.redirect('/team'));
+                    else if (oldTeam.id === newTeam.id) res.redirect('/team');
+                    else if (confirmed) {
+                        // leave all teams
+                        leave(req, res, () => {
+                            addMember(newTeam.id, user, () => res.redirect('/team'));
+                        });
+                    } else res.render('decision', {teamHash, oldTeam, newTeam});
+                });
+            });
         });
-    });
-    res.render('join', {team, user});
-    */
+    }
+};
+
+let joinTeam = (teamHash) => {
+    let teamId = atob(teamHash).replace('teamid');
+    console.log(teamId);
 };
 
 module.exports = {render, save, leave, join};

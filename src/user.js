@@ -14,8 +14,8 @@ let save = () => {
 let auth = (req, res) => {
     let code = req.query.code;
     return github.token(code, (token) => {
-        let week = 7 * 24 * 60 * 60 * 1000; //milliseconds
-        res.cookie('token', token, {maxAge: week});
+        let month = 30 * 24 * 60 * 60 * 1000; //milliseconds
+        res.cookie('token', token, {maxAge: month});
         return github.user(token, (user) => {
             user = JSON.parse(user);
             let github_id = user.id;
@@ -27,7 +27,9 @@ let auth = (req, res) => {
             query += `ON CONFLICT (github_id) DO UPDATE SET token = '${token}'`;
             db.query(query, (err, result) => {
                 if (err) throw err;
-                res.redirect('/team');
+                if (req.cookies.teamintent) res.redirect('/join');
+                else res.redirect('/team');
+
             });
         });
     });
