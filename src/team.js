@@ -39,7 +39,7 @@ let getMembers = (team, callback) => {
 let getInviteLink = (team, req) => {
     let host = req.get('host');
     let salt = process.env.SALT;
-    let hash = btoa(`${salt}${team.id}`);
+    let hash = btoa(`${salt}${team.id}${salt}`);
     return `${host}/join?team=${hash}`;
 };
 
@@ -124,7 +124,8 @@ let leave = (req, res) => {
 };
 
 let getTeamFromHash = (hash, callback) => {
-    let teamId = atob(hash).replace(process.env.SALT, '');
+    let salt = process.env.SALT;
+    let teamId = atob(hash).replace(salt, '').replace(salt, '');
     let query = `SELECT teams.id, teams.name from teams WHERE id = '${teamId}'`;
     db.query(query, (err, result) => {
         if (err) throw err;
