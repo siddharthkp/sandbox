@@ -12,14 +12,15 @@ link(rel='stylesheet', href='styles/team.css')
     autofocus, value=team.name)
     label#name-message
     <br /><br />
-    label select track
-    each track in ['design', 'hardware', 'open track', 'dev tools', 'data viz', 'quality']
-        if (team.track == track)
-            input(type='radio', name='track', value=track id=track checked=true)
-        else
-            input(type='radio', name='track', value=track id=track)
-        label(for=track).radio-inline=track
-    label#track-message
+    if (team.name)
+        label select track
+        each track in ['design', 'hardware', 'open track', 'dev tools', 'data viz', 'quality']
+            if (team.track == track)
+                input(type='radio', name='track', value=track id=track checked=true)
+            else
+                input(type='radio', name='track', value=track id=track)
+            label(for=track).radio-inline=track
+        label#track-message
 
 .members
     label members (max 4)
