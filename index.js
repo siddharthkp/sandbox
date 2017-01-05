@@ -29,7 +29,10 @@ app.get('/', (req, res) => {
     else res.render('home', {client_id: process.env.GITHUB_ID});
 });
 
-app.get('/team', team.render);
+app.get('/team', (req, res) => {
+    if (!req.cookies.token) res.render('home', {client_id: process.env.GITHUB_ID});
+    else res.render('team');
+});
 app.post('/team', team.save);
 app.get('/leave', team.leave);
 app.get('/join', team.join);
