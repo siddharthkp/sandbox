@@ -24,16 +24,5 @@ database.get((connection) => {
     app.listen(process.env.PORT, () => console.log('App is active'));
 });
 
-app.get('/', (req, res) => {
-    if (req.cookies.token) res.redirect('/team');
-    else res.render('home', {client_id: process.env.GITHUB_ID});
-});
+app.get('*', (req, res) => res.render('home'));
 
-app.get('/team', team.render);
-app.post('/team', team.save);
-app.get('/leave', team.leave);
-app.get('/join', team.join);
-
-app.get('/auth', user.auth);
-
-app.post('/tshirt', user.tshirt);
