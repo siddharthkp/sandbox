@@ -54,7 +54,7 @@ let render = (req, res) => {
     res.clearCookie('teamintent');
 
     getUser(req.cookies.token, (user) => {
-        if (!user) {
+        if (!user || user.username === 'undefined') {
             res.clearCookie('token');
             res.redirect('/');
         } else getTeam(user, (team) => {
